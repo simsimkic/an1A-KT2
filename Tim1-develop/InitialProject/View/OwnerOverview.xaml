@@ -1,0 +1,50 @@
+﻿<Window x:Class="InitialProject.View.OwnerOverview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitialProject.View"
+        mc:Ignorable="d"
+        Title="OwnerOverview" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button Content="New Accommodation" HorizontalAlignment="Left" Margin="65,48,0,0" VerticalAlignment="Top" Width="141" Click="AddAccommodationButton_Click" Background="#FF645BF0"/>
+        <DataGrid Name="AccommodationDataGrid" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False" Margin="65,90,65,277" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="130"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="180"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100"/>
+                <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="100"/>
+                <DataGridTextColumn Header="Min Days for Reservation" Binding="{Binding MinDaysForReservation}" Width="130"/>
+                <DataGridTemplateColumn  Width="45">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Pictures" Click="PicturesButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Sign out" HorizontalAlignment="Left" Margin="694,38,0,0" VerticalAlignment="Top" Width="76" Click="SignOutButton_Click"/>
+        <Label Content="Guests to Review" HorizontalAlignment="Left" Margin="50,329,0,0" VerticalAlignment="Top" Width="156"/>
+        <DataGrid ItemsSource="{Binding Path= ReservationsToReview}" AutoGenerateColumns="False" Margin="50,360,301,35" IsReadOnly="True" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding Guest.LastName}"/>
+                <DataGridTextColumn Header="First Name" Binding="{Binding Guest.Name}"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Guest.Username}"/>
+                <DataGridTextColumn Header="Reservation Start Date" Binding="{Binding Arrival}"/>
+                <DataGridTextColumn Header="Reservation End Date" Binding="{Binding Departure}"/>
+                <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}"/>
+                <DataGridTemplateColumn  Width="45">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Review" Click="ReviewButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="ReviewButton" Content="Open all reviews" HorizontalAlignment="Left" Margin="337,326,0,0" VerticalAlignment="Top" Height="22" Width="162" Click="ReviewOverviewButton_Click"/>
+        <StackPanel Name="NotificationStack" Margin="533,370,30,44"/>
+        <Label Content="Reminders" HorizontalAlignment="Left" Margin="562,329,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+    </Grid>
+</Window>

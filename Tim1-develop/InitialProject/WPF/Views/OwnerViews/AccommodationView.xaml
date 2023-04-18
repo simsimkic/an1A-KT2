@@ -1,0 +1,79 @@
+﻿<Page x:Class="InitialProject.WPF.Views.AccommodationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.WPF.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="430"
+      Title="My Accommodation" Background="LightBlue">
+    <Page.Resources>
+        <DataTemplate x:Key="accommodations">
+            <Border BorderBrush="Black" BorderThickness="0.5" Margin="0,0,0,0" Background="LightGray">
+                <Grid>
+                    <Grid Margin="0,0,0,0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" Command="{Binding Path=DataContext.ViewImagesCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                            <Image Source="{Binding Path=CoverImage.Url}" Stretch="Fill"></Image>
+                        </Button>
+                        <TextBlock Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="0" Padding="1" />
+                        <TextBlock Text="{Binding Path=Location}" Grid.Column="1" Grid.Row="1" Padding="1" />
+                        <Button Content="Statistics" Grid.Column="2" Grid.Row="0" Padding="1"/>
+                        <Button Content="Remove" Grid.Column="2" Grid.Row="1" Padding="1"/>
+                    </Grid>
+                    <Grid Margin="0,60,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Padding="1">
+                            <Run Text="Type: " />
+                            <Run Text="{Binding Path=Type.Name}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Padding="1">
+                            <Run Text="Capacity: " />
+                            <Run Text="{Binding Path=Capacity}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Padding="1">
+                            <Run Text="Min days: " />
+                            <Run Text="{Binding Path=MinDaysForReservation}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Padding="1" Grid.ColumnSpan="2">
+                            <Run Text="Days before to cancel: " />
+                            <Run Text="{Binding Path=MinDaysToCancel}"/>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <ListBox Name="AccommodationListBox" ItemsSource="{Binding Path=Accommodations}" ItemTemplate="{StaticResource accommodations}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" SelectionMode="Single" Height="421" VerticalAlignment="Top" Margin="30,31,30,0">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+        <Button Command="{Binding NewAccommodationCommand}" Name="NewAccommodationButton" Content="New Accommodation" HorizontalAlignment="Center" Margin="0,474,0,0"  Width="370" Height="43" VerticalAlignment="Top"/>
+        <Button Content="My Renovations" HorizontalAlignment="Center" Margin="0,540,0,0"  Width="370" Height="43" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
